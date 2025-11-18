@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Complete Flutter project",
+      "completed": false,
+      "updatedAt": "2025-11-15T10:00:00.000Z",
+      "deleted": false
+    },
+    {
+      "id": "2",
+      "title": "Review code documentation",
+      "completed": true,
+      "updatedAt": "2025-11-14T15:30:00.000Z",
+      "deleted": false
+    },
+    {
+      "id": "3",
+      "title": "Test offline synchronization",
+      "completed": false,
+      "updatedAt": "2025-11-16T09:00:00.000Z",
+      "deleted": false
+    }
+  ]
+}
