@@ -1,35 +1,36 @@
-name: todo_offline_sync
-description: A Flutter To-Do app with offline-first architecture and sync capabilities.
-publish_to: 'none'
+name: tallergestordeestado
+description: A new Flutter project.
+publish_to: "none"
+
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # State Management
-  flutter_riverpod: ^2.4.9
+  cupertino_icons: ^1.0.8
 
-  # Local Storage
-  sqflite: ^2.3.0
-  path: ^1.8.3
-
-  # Network
-  http: ^1.1.2
-  connectivity_plus: ^5.0.2
-
-  # Utils
-  uuid: ^4.2.2
+  # === Dependencias necesarias ===
   intl: ^0.19.0
-  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0
+  path: ^1.9.0
+  connectivity_plus: ^6.0.3
+  uuid: ^4.3.3
+  http: ^1.2.1
+
+
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/

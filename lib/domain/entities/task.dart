@@ -1,26 +1,54 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/universidades_list_screen.dart';
+class Task {
+  final String id;
+  final String title;
+  final bool completed;
+  final DateTime updatedAt;
+  final DateTime? syncedAt;
+  final bool deleted;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
+  Task({
+    required this.id,
+    required this.title,
+    required this.completed,
+    required this.updatedAt,
+    this.syncedAt,
+    this.deleted = false,
+  });
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Task copyWith({
+    String? id,
+    String? title,
+    bool? completed,
+    DateTime? updatedAt,
+    DateTime? syncedAt,
+    bool? deleted,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      completed: completed ?? this.completed,
+      updatedAt: updatedAt ?? this.updatedAt,
+      syncedAt: syncedAt ?? this.syncedAt,
+      deleted: deleted ?? this.deleted,
+    );
+  }
+
+  bool get isSynced {
+    if (syncedAt == null) return false;
+    return syncedAt!.isAfter(updatedAt.subtract(const Duration(seconds: 1)));
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gestión Universidades',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: UniversidadesListScreen(),
-    );
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Task && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'Task(id: $id, title: $title, completed: $completed, synced: $isSynced)';
   }
 }

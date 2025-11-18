@@ -1,26 +1,59 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/universidades_list_screen.dart';
+import 'package:flutter/foundation.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
+class AppLogger {
+  static const String _prefix = '[TodoApp]';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  static void info(String message) {
+    if (kDebugMode) {
+      print('$_prefix ℹ️ $message');
+    }
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gestión Universidades',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: UniversidadesListScreen(),
-    );
+  static void success(String message) {
+    if (kDebugMode) {
+      print('$_prefix ✅ $message');
+    }
+  }
+
+  static void warning(String message) {
+    if (kDebugMode) {
+      print('$_prefix ⚠️ $message');
+    }
+  }
+
+  static void error(String message, [Object? error, StackTrace? stackTrace]) {
+    if (kDebugMode) {
+      print('$_prefix ❌ $message');
+      if (error != null) {
+        print('$_prefix Error: $error');
+      }
+      if (stackTrace != null) {
+        print('$_prefix StackTrace: $stackTrace');
+      }
+    }
+  }
+
+  static void debug(String message) {
+    if (kDebugMode) {
+      print('$_prefix 🐛 $message');
+    }
+  }
+
+  static void network(String message) {
+    if (kDebugMode) {
+      print('$_prefix 🌐 $message');
+    }
+  }
+
+  static void database(String message) {
+    if (kDebugMode) {
+      print('$_prefix 💾 $message');
+    }
+  }
+
+  static void sync(String message) {
+    if (kDebugMode) {
+      print('$_prefix 🔄 $message');
+    }
   }
 }
