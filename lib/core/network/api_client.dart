@@ -1,26 +1,89 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/universidades_list_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
+class ApiClient {
+  final String baseUrl;
+  final http.Client _client;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  ApiClient({
+    required this.baseUrl,
+    http.Client? client,
+  }) : _client = client ?? http.Client();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gestión Universidades',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: UniversidadesListScreen(),
-    );
+  Future<http.Response> get(
+      String endpoint, {
+        Map<String, String>? headers,
+        Duration timeout = const Duration(seconds: 10),
+      }) async {
+    final uri = Uri.parse('$baseUrl$endpoint');
+    return await _client
+        .get(
+      uri,
+      headers: _defaultHeaders(headers),
+    )
+        .timeout(timeout);
+  }
+
+  Future<http.Response> post(
+      String endpoint, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        Duration timeout = const Duration(seconds: 10),
+      }) async {
+    final uri = Uri.parse('$baseUrl$endpoint');
+    return await _client
+        .post(
+      uri,
+      headers: _defaultHeaders(headers),
+      body: body != null ? json.encode(body) : null,
+    )
+        .timeout(timeout);
+  }
+
+  Future<http.Response> put(
+      String endpoint, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        Duration timeout = const Duration(seconds: 10),
+      }) async {
+    final uri = Uri.parse('$baseUrl$endpoint');
+    return await _client
+        .put(
+      uri,
+      headers: _defaultHeaders(headers),
+      body: body != null ? json.encode(body) : null,
+    )
+        .timeout(timeout);
+  }
+
+  Future<http.Response> delete(
+      String endpoint, {
+        Map<String, String>? headers,
+        Duration timeout = const Duration(seconds: 10),
+      }) async {
+    final uri = Uri.parse('$baseUrl$endpoint');
+    return await _client
+        .delete(
+      uri,
+      headers: _defaultHeaders(headers),
+    )
+        .timeout(timeout);
+  }
+
+  Map<String, String> _defaultHeaders(Map<String, String>? customHeaders) {
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    if (customHeaders != null) {
+      headers.addAll(customHeaders);
+    }
+
+    return headers;
+  }
+
+  void close() {
+    _client.close();
   }
 }

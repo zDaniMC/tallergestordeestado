@@ -4,9 +4,7 @@ import 'presentation/screens/task_list_screen.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
+    const ProviderScope(child: MyApp()),
   );
 }
 
@@ -19,55 +17,55 @@ class MyApp extends StatelessWidget {
       title: 'To-Do Offline Sync',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
-        ),
         useMaterial3: true,
-        cardTheme: CardTheme(
+
+        cardTheme: const CardThemeData(
           elevation: 2,
+          color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
+
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+
+        inputDecorationTheme: const InputDecorationTheme(
           filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
         ),
       ),
+
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.dark,
-        ),
         useMaterial3: true,
-        cardTheme: CardTheme(
+        brightness: Brightness.dark,
+
+        cardTheme: const CardThemeData(
           elevation: 2,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
+
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+
+        inputDecorationTheme: const InputDecorationTheme(
           filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
         ),
       ),
+
       themeMode: ThemeMode.system,
       home: const TaskListScreen(),
     );

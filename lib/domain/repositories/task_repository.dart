@@ -1,26 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/universidades_list_screen.dart';
+import '../entities/task.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-}
+abstract class TaskRepository {
+  /// Get all tasks from local storage
+  /// If [forceRefresh] is true, fetches from API and merges with local
+  Future<List<Task>> getAllTasks({bool forceRefresh = false});
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  /// Get a single task by ID
+  Future<Task?> getTaskById(String id);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gestión Universidades',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: UniversidadesListScreen(),
-    );
-  }
+  /// Create a new task
+  Future<Task> createTask(String title);
+
+  /// Update an existing task
+  Future<Task> updateTask(Task task);
+
+  /// Delete a task
+  Future<void> deleteTask(String id);
+
+  /// Sync all pending operations with the server
+  Future<void> syncPendingOperations();
+
+  /// Stream of pending operations count
+  Stream<int> get pendingOperationsCount;
 }
